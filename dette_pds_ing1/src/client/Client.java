@@ -10,7 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Client
-{
+{ 
 
  public static void main (String[]args) throws IOException, JSONException{
    Socket socket= new Socket ("localhost", 5555);
