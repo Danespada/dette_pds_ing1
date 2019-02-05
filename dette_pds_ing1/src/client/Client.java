@@ -9,10 +9,11 @@ import java.net.Socket;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Client
-{ 
+import database.Database;
 
- public static void main (String[]args) throws IOException, JSONException{
+public class Client{ 
+
+ public static void main (String[]args) throws Exception{
    Socket socket= new Socket ("localhost", 5555);
    OutputStreamWriter writer = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
    BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
@@ -29,6 +30,9 @@ public class Client
    
    System.out.println("Received from Server:\n " + jsonObject.toString(2));
   
+   Database.mydb();
+   
+   
    socket.close();
    
  }
