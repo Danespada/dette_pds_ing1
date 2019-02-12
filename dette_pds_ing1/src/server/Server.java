@@ -57,15 +57,18 @@ public class Server
           BufferedReader reader = new BufferedReader (new InputStreamReader(socket.getInputStream(),"UTF-8"));
           while(b){
             MagasinDAO magasin = new MagasinDAO(connexionBD);
-            System.out.println("Nouveau client");
+            System.out.println("Nouveau magasin");
             String nomMag = reader.readLine();
             if (nomMag.equals("insert")) {
-              JSONObject jsonObject = new JSONObject(magasin);
+              nomMag= reader.readLine();
+              System.out.println("Insertion");
+              JSONObject jsonObject = new JSONObject(nomMag);
               String nomM = jsonObject.getString("Magasin");
-              Magasin mag = new Magasin(nomMag);
+              Magasin mag = new Magasin(nomM);
               magasin.create(mag);
               System.out.println("Ajout de magasin :  " + nomMag);
             } else {
+              System.out.println("Insertion else");
               JSONObject jsonObject = new JSONObject(nomMag);
               writer.write(jsonObject.toString() + "\n");
               writer.flush();

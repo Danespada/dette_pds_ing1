@@ -24,10 +24,10 @@ public class MagasinDAO extends Dao<Magasin>{
     @Override
     public boolean create(Magasin obj) {
            try{
-                this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeUpdate("INSERT INTO redevance(magasin) values (\'"+obj.getNom()+"\',\'");
+                this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeUpdate("INSERT INTO redevance(magasin) values (\'"+obj.getNom()+"\')");
                 return true;
             } catch (SQLException e) {
-                e.printStackTrace();
+               System.out.println("Erreur lors de l'insertion");
             }
             return false;
     }

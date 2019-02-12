@@ -30,11 +30,12 @@ public class Client{
      
      JSONObject job1 = new JSONObject("{Magasin :" + entrée1 + "}");
      writer.write("insert\n");
-     //writer.flush();
+     writer.flush();
      writer.write(job1.toString()+"\n");
-     //writer.flush();
+     writer.flush();
      }
    }
-   writer.flush();
+   writer.close();
+  // writer.flush();
   }
 } 
