@@ -24,7 +24,7 @@ public class Database {
   
   private void connectAll() throws ClassNotFoundException {
     try {
-        for (int i = 0; i < this.getNbConnection(); i++) {
+        for (int i = 0; i < this.nbConnection; i++) {
             this.getPool1().add(getConnection());
         }
     } catch (SQLException e) {
@@ -33,7 +33,7 @@ public class Database {
 }
 
 public int getNbConnection() {
-    return nbConnection;
+    return this.pool1.size();
 }
 
 public void setNbConnection(int nbConnection) {

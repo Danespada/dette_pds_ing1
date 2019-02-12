@@ -35,6 +35,7 @@ public class Server
         Socket socket = serverSocket.accept();
         if(bd.getPool1().size()!=0) {
           startHandler(socket, bd);
+          System.out.println("Nombre de connexions disponibles : "+bd.getNbConnection());
       
   } else {
       System.out.println("Connexion échouée");
@@ -51,13 +52,13 @@ public class Server
       @Override
       public void run() {
         boolean b = true;
+        Connection connexionBD = bd.addConnection();
         try {
-          Connection connexionBD = Database.getConnection();
           OutputStreamWriter writer = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
           BufferedReader reader = new BufferedReader (new InputStreamReader(socket.getInputStream(),"UTF-8"));
           while(b){
             MagasinDAO magasin = new MagasinDAO(connexionBD);
-            System.out.println("Nouveau magasin");
+            //System.out.println("Nouveau magasin");
             String nomMag = reader.readLine();
             if (nomMag.equals("insert")) {
               nomMag= reader.readLine();
@@ -81,10 +82,11 @@ public class Server
            // magasin.create(mag);
           }
           }
-        } catch (IOException | SQLException | ClassNotFoundException | JSONException e) {
+        } catch (IOException | JSONException e) {
           e.printStackTrace();
         } finally {
           closeSocket();
+          bd.close(connexionBD);
         }
       }
       
