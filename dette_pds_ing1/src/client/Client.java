@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,27 +14,27 @@ import database.Database;
 
 public class Client{ 
 
- public static void main (String[]args) throws Exception{
+ public static void main (String[]args) throws Exception, JSONException{
    Socket socket= new Socket ("localhost", 5555);
    OutputStreamWriter writer = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
    BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
-   
-   JSONObject jsonObject = new JSONObject();
-   jsonObject.put("message", "The Hate U Give Little Enfants F Everybody");
-   
-   
-   writer.write(jsonObject.toString()+"\n");
+   Scanner sc1 = new Scanner(System.in);
+   boolean condition = true;
+   while(condition) {
+     System.out.println("Saisir nom magasin");
+     String entrée1 = sc1.nextLine();
+     if(entrée1.equals("\\q")) {
+       condition = false;
+       System.out.println("Déconnexion"); 
+     }else {
+     
+     JSONObject job1 = new JSONObject("{Magasin :" + entrée1 + "}");
+     writer.write("insert\n");
+     //writer.flush();
+     writer.write(job1.toString()+"\n");
+     //writer.flush();
+     }
+   }
    writer.flush();
-   
-   String line = reader.readLine();
-   jsonObject = new JSONObject(line);
-   
-   System.out.println("Received from Server:\n " + jsonObject.toString(2));
-  
-   Database.mydb();
-   
-   
-   socket.close();
-   
- }
-}
+  }
+} 
