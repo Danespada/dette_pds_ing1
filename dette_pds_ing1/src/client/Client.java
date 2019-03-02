@@ -11,15 +11,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import database.Database;
+import ihm.IHM;
 
 public class Client{ 
 
  public static void main (String[]args) throws Exception, JSONException{
+   
+   IHM fenetre = new IHM();
+   
    Socket socket= new Socket ("localhost", 5555);
    OutputStreamWriter writer = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
    BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
    Scanner sc1 = new Scanner(System.in);
    boolean condition = true;
+   
+   
    while(condition) {
      System.out.println("Saisir nom magasin");
      String entrée1 = sc1.nextLine();

@@ -24,7 +24,7 @@ public class MagasinDAO extends Dao<Magasin>{
     @Override
     public boolean create(Magasin obj) {
            try{
-                this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeUpdate("INSERT INTO redevance(magasin) values (\'"+obj.getNom()+"\')");
+                this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeUpdate("INSERT INTO magasin(nommagasin) values (\'"+obj.getNom()+"\')");
                 return true;
             } catch (SQLException e) {
                System.out.println("Erreur lors de l'insertion");
@@ -47,7 +47,7 @@ public class MagasinDAO extends Dao<Magasin>{
     @Override
     public Magasin find(String nom) {
           try{
-                ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT magasin FROM redevance Where magasin='"+ nom);
+                ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT nommagasin FROM magasin Where magasin='"+ nom);
                 while(result.next()) {
                     Magasin mag = new Magasin(result.getString("nom"));
                     return mag;
@@ -64,7 +64,7 @@ public class MagasinDAO extends Dao<Magasin>{
       try {
         ResultSet result = this.connect
                 .createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-                .executeQuery("SELECT magasin FROM redevance");
+                .executeQuery("SELECT nommagasin FROM magasin");
         while (result.next()) {
             Magasin mag = new Magasin(result.getString("nom"));
             return mag;
