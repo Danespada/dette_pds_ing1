@@ -14,16 +14,19 @@ public class IHM extends JFrame {
     this.setSize(400,200);
     this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    
+    this.setLayout(new BorderLayout());
     JPanel panel = new JPanel();
     this.setContentPane(panel);
     
-    JButton button = new JButton("Voir");
-    this.getContentPane().add(button);
-    JTextField jtxtfld = new JTextField(50);
-    this.getContentPane().add(jtxtfld);
-    JLabel label = new JLabel("Exemple de label");
-    this.getContentPane().add(label);
+    JLabel label = new JLabel("Liste des magasins");
+    this.getContentPane().add(label, BorderLayout.NORTH);
+    JComboBox ListeMagasins = new JComboBox();
+    this.getContentPane().add(ListeMagasins, BorderLayout.CENTER);
+    JComboBox ListeDates = new JComboBox();
+    this.getContentPane().add(ListeDates, BorderLayout.CENTER);
+    JButton button = new JButton("Voir facture");
+    this.getContentPane().add(button, BorderLayout.SOUTH);
+    
     this.setVisible(true);
   }
 }
