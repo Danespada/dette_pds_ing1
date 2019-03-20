@@ -7,10 +7,14 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.google.gson.*;
 
 import dao.MagasinDAO;
 import database.Database;
@@ -59,30 +63,29 @@ public class Server
           while(b){
             MagasinDAO magasin = new MagasinDAO(connexionBD);
             //System.out.println("Nouveau magasin");
-            String nomMag = reader.readLine();
-            if (nomMag.equals("insert")) {
-              nomMag= reader.readLine();
-              System.out.println("Insertion");
-              JSONObject jsonObject = new JSONObject(nomMag);
-              String nomM = jsonObject.getString("Magasin");
-              Magasin mag = new Magasin(nomM);
-              magasin.create(mag);
-              System.out.println("Ajout de magasin :  " + nomMag);
-            } else {
-              System.out.println("Insertion else");
-              JSONObject jsonObject = new JSONObject(nomMag);
-              writer.write(jsonObject.toString() + "\n");
+            String ligne = reader.readLine();
+            if(ligne!=null) {
+            if (ligne.equals("insert")) {
+            }else if(ligne.equals("getMagasins")) {
+              System.out.println("getMagasins");
+              ArrayList<Magasin> list = magasin.findList();
+              final GsonBuilder builder = new GsonBuilder();
+              final Gson gson = builder.create();
+              writer.write(gson.toJson(list));
               writer.flush();
-              
-            System.out.println("Réception du serveur");
-           // Magasin mag = new Magasin(nomMag, montantMag);
-           // JSONObject jsonObject = new JSONObject(line);
-           // writer.write(jsonObject.toString()+"\n");
-           // writer.flush();
-           // magasin.create(mag);
+            }else if(ligne.equals("redevance")) {
+              System.out.println("calcul red");
+             String mag = reader.readLine();
+             String date = reader.readLine();
+             System.out.println(mag);
+
+            }
+            }else {
+              b=false;
+            }
+            
           }
-          }
-        } catch (IOException | JSONException e) {
+        } catch (IOException e) {
           e.printStackTrace();
         } finally {
           closeSocket();
@@ -97,6 +100,8 @@ public class Server
         }catch (IOException e) {
         }
       }
+      
+      
     };
     thread.start();
   }

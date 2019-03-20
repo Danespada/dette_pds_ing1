@@ -1,14 +1,17 @@
 package magasin;
 
-public class Magasin
-{
+public class Magasin{
   
-  private String nom;
+  private int idMag;
+  private String nomMag;
+  
+  public Magasin(int idMag, String nom, ChiffredAffaire ca) {
+    
+  }
   
   
-  public Magasin(String nom)
-  {
-    this.nom = nom;
+  public Magasin(String nom){
+    this.nomMag = nom;
   }
  
   public Magasin() {
@@ -17,11 +20,23 @@ public class Magasin
   
   public String getNom()
   {
-    return nom;
+    return nomMag;
   }
   public void setNom(String nom)
   {
-    this.nom = nom;
+    this.nomMag = nom;
+  }
+
+
+  public int getIdMagasin()
+  {
+    return idMag;
+  }
+
+
+  public void setIdMagasin(int idMagasin)
+  {
+    this.idMag = idMagasin;
   }
   
   

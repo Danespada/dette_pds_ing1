@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import magasin.Magasin;
 
@@ -58,20 +59,28 @@ public class MagasinDAO extends Dao<Magasin>{
             return null;
     }
 
-    @Override
-    public Magasin find()
+    public ArrayList<Magasin> findList()
     {
+      ArrayList<Magasin> list = new ArrayList<>();
       try {
         ResultSet result = this.connect
                 .createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
                 .executeQuery("SELECT nommagasin FROM magasin");
         while (result.next()) {
-            Magasin mag = new Magasin(result.getString("nom"));
-            return mag;
+            Magasin mag = new Magasin(result.getString("nommagasin"));
+            list.add(mag);
         }
+        return list;
     } catch (SQLException e) {
         e.printStackTrace();
     }
+      return null;
+    }
+
+    @Override
+    public Magasin find()
+    {
+      // TODO Auto-generated method stub
       return null;
     }
 
