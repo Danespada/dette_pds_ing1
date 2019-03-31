@@ -11,9 +11,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.google.gson.*;
 
 import dao.MagasinDAO;
@@ -51,7 +48,7 @@ public class Server
       }
     }
 
-  private static void startHandler(final Socket socket, Database bd) throws IOException{
+  private static void startHandler(final Socket socket, final Database bd) throws IOException{
     Thread thread = new Thread(){
       @Override
       public void run() {
@@ -71,14 +68,24 @@ public class Server
               ArrayList<Magasin> list = magasin.findList();
               final GsonBuilder builder = new GsonBuilder();
               final Gson gson = builder.create();
-              writer.write(gson.toJson(list));
+              System.out.println(list);
+              writer.write(gson.toJson(list)+"\n");
               writer.flush();
+              System.out.println("sendmag");
             }else if(ligne.equals("redevance")) {
-              System.out.println("calcul red");
-             String mag = reader.readLine();
+              System.out.println("calcul redevance avec :");
+             String mag1 = reader.readLine();
+             int mag = Integer.parseInt(mag1);
              String date = reader.readLine();
-             System.out.println(mag);
-
+             System.out.println("magasin :"+mag);
+              System.out.println("date :"+date);
+              System.out.println("recuperation de la superficie");
+              double red = 160*magasin.getSurfaceFromidMagasin(mag);
+              System.out.println("magasin privilegie ?");
+              if(magasin.getPrivilegeFromidMagasin(mag)){
+                red = red*1.2;
+              }
+              System.out.println(red);
             }
             }else {
               b=false;

@@ -5,8 +5,9 @@ public class Magasin{
   private int idMag;
   private String nomMag;
   
-  public Magasin(int idMag, String nom, ChiffredAffaire ca) {
-    
+  public Magasin(String nom,int idMag, ChiffredAffaire ca) {
+    this.idMag = idMag;
+    this.nomMag = nom;
   }
   
   
@@ -30,8 +31,9 @@ public class Magasin{
 
   public int getIdMagasin()
   {
-    return idMag;
+    return this.idMag;
   }
+  public String toString(){return "" + this.nomMag+";"+this.idMag;}
 
 
   public void setIdMagasin(int idMagasin)

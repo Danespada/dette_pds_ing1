@@ -17,8 +17,8 @@ public class Database {
   
   public Database(int nbCo) throws ClassNotFoundException {
     this.setNbConnection(nbCo);
-    this.setPool1(new ArrayList<>());
-    this.setPool2(new ArrayList<>());
+    this.setPool1(new ArrayList<Connection>());
+    this.setPool2(new ArrayList<Connection>());
     connectAll();
 }
   
@@ -72,7 +72,7 @@ public void setPool2(ArrayList<Connection> pool2) {
   
   public static Connection getConnection() throws SQLException, ClassNotFoundException{
     Class.forName("com.mysql.jdbc.Driver");
-    return DriverManager.getConnection("jdbc:mysql://localhost:8889/dette", "root", "root");
+    return DriverManager.getConnection("jdbc:mysql://localhost:3306/dette", "root", "root");
   }
   
   public Connection addConnection() {
